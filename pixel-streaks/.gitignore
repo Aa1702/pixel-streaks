@@ -1,8 +1,18 @@
-# Secret files
+# --- Security / Secrets ---
 .env
+src/firebase.js
 
-# System files
+# --- React / System ---
+/node_modules
+/.pnp
+.pnp.js
 .DS_Store
 
-# Don't track firebase config with secrets
-src/firebase.js
+# --- Testing / Production ---
+/coverage
+/build
+
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

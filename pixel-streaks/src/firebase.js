@@ -2,19 +2,20 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+console.log("Checking API Key:", process.env.REACT_APP_FIREBASE_API_KEY);
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDewU5eyPk8Jt2UfTV67kpySlr0njSV234",
-  authDomain: "pixel-streaks.firebaseapp.com",
-  projectId: "pixel-streaks",
-  storageBucket: "pixel-streaks.firebasestorage.app",
-  messagingSenderId: "1062766895942",
-  appId: "1:1062766895942:web:6cd26c9f330c706d52fb47",
-  measurementId: "G-JXKY0PLYH8"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
-
 const app = initializeApp(firebaseConfig);
+console.log("Firebase App Initialized successfully!");
 
 export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
-export const db = getFirestore(app);
+export const provider = new GoogleAuthProvider(); // Ensure this is exported!
+export const db = getFirestore(app);;
