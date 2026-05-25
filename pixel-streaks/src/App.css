@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --bg-light-green: #e9f5d8;
+  --bg-dark-green: #cbe4a6;
+  --wood-light: #dcb98a;
+  --wood-dark: #a47854;
+  --wood-text: #5c3a21;
+  --container-bg: #fffcf2;
+  --pixel-border: 4px solid var(--wood-dark);
+  --box-shadow: 4px 4px 0px rgba(164, 120, 84, 0.4);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+  color: var(--wood-text);
+  background-color: var(--bg-light-green);
+  background-image: 
+    linear-gradient(45deg, var(--bg-dark-green) 25%, transparent 25%), 
+    linear-gradient(-45deg, var(--bg-dark-green) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, var(--bg-dark-green) 75%), 
+    linear-gradient(-45deg, transparent 75%, var(--bg-dark-green) 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+  animation: scrollBackground 15s linear infinite;
+  overflow-x: hidden;
+}
+
+@keyframes scrollBackground {
+  0% { background-position: 0 0, 0 30px, 30px -30px, -30px 0px; }
+  100% { background-position: 60px 60px, 60px 90px, 90px 30px, 30px 60px; }
+}
+
+/* --- TRUE PIXEL ART FLOATING ELEMENTS --- */
+.floating-elements {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0; 
+}
+
+.float-item {
+  position: absolute;
+  opacity: 0.7;
+  animation: floatUp 12s linear infinite;
+}
+
+/* Draws a perfect 16-bit red heart using CSS */
+.pixel-heart {
+  width: 60px; height: 60px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9"><rect x="1" y="0" width="2" height="1" fill="%23FF7F7F"/><rect x="6" y="0" width="2" height="1" fill="%23FF7F7F"/><rect x="0" y="1" width="4" height="1" fill="%23FF7F7F"/><rect x="5" y="1" width="4" height="1" fill="%23FF7F7F"/><rect x="0" y="2" width="9" height="3" fill="%23FF7F7F"/><rect x="1" y="5" width="7" height="1" fill="%23FF7F7F"/><rect x="2" y="6" width="5" height="1" fill="%23FF7F7F"/><rect x="3" y="7" width="3" height="1" fill="%23FF7F7F"/><rect x="4" y="8" width="1" height="1" fill="%23FF7F7F"/></svg>');
+  background-size: contain; background-repeat: no-repeat; image-rendering: pixelated;
+}
+
+/* Draws a perfect 16-bit pink cloud using CSS */
+.pixel-cloud {
+  width: 100px; height: 60px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><rect x="4" y="0" width="4" height="1" fill="%23FFB7C5"/><rect x="2" y="1" width="8" height="1" fill="%23FFB7C5"/><rect x="1" y="2" width="10" height="1" fill="%23FFB7C5"/><rect x="1" y="3" width="12" height="1" fill="%23FFB7C5"/><rect x="0" y="4" width="14" height="2" fill="%23FFB7C5"/><rect x="1" y="6" width="12" height="1" fill="%23FFB7C5"/></svg>');
+  background-size: contain; background-repeat: no-repeat; image-rendering: pixelated;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+}
+
+/* --- MAIN APP CONTAINER --- */
+.app-container {
+  max-width: 600px;
+  width: 90%;
+  background: var(--container-bg);
+  border: var(--pixel-border);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 10; 
+}
+
+/* --- IDLE MASCOT FLOATING ANIMATION --- */
+.mascot-card {
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  background: var(--container-bg);
+  border: 4px solid transparent;
+  border-radius: 8px;
+  /* They will gently bob up and down while waiting to be clicked */
+  animation: idleBob 3s ease-in-out infinite;
+  transition: box-shadow 0.2s ease, border 0.2s ease;
+}
+
+/* Staggers the bobs so they don't all move at the exact same time */
+.mascot-card:nth-child(even) {
+  animation-delay: 1.5s;
+}
+
+@keyframes idleBob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.mascot-card:hover {
+  animation: none; /* Stops the gentle bob so it can jump up high! */
+  transform: translateY(-15px) scale(1.05); 
+  border: 4px solid var(--bg-dark-green);
+  box-shadow: 8px 15px 0px rgba(92, 58, 33, 0.2); 
+}
+
+/* --- CALENDAR POP-UP (MODAL) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: var(--container-bg);
+  padding: 25px;
+  border: var(--pixel-border);
+  border-radius: 12px;
+  box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
+  text-align: center;
+  animation: popInModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popInModal {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.calendar-day {
+  width: 35px; height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-light-green);
+  border: 2px solid var(--wood-dark);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.calendar-day.completed {
+  background: #ffd166; 
+  border-color: #e07a5f;
+}
+
+/* --- UI ELEMENTS --- */
+.streak-board { margin-top: 20px; padding: 20px; border: var(--pixel-border); background: var(--bg-dark-green); color: var(--wood-text); border-radius: 8px; position: relative; }
+h1 { font-size: 1.5rem; color: var(--wood-dark); text-shadow: 2px 2px 0px var(--wood-light); margin-bottom: 30px; }
+.btn { background-color: var(--wood-light); color: var(--wood-text); font-family: 'Press Start 2P', cursive; font-size: 0.8rem; padding: 12px 20px; border: var(--pixel-border); box-shadow: 2px 2px 0px var(--wood-dark); cursor: pointer; margin: 10px; }
+.btn:hover { background-color: #e5c599; }
+.btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px var(--wood-dark); }
+.input-box { font-family: 'Press Start 2P', cursive; padding: 10px; border: var(--pixel-border); width: 60%; font-size: 0.8rem; margin-right: 10px; }
+.todo-list { list-style: none; padding: 0; text-align: left; margin-top: 20px; }
+.todo-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg-light-green); border: 2px dashed var(--wood-dark); padding: 10px; margin-bottom: 10px; font-size: 0.7rem; border-radius: 4px; }
+.mascot-img-large { width: 80px; height: 80px; image-rendering: pixelated; border: var(--pixel-border); background: var(--bg-light-green); border-radius: 4px; }
+.mascot-img-small { width: 50px; height: 50px; image-rendering: pixelated; border: var(--pixel-border); background: var(--bg-light-green); border-radius: 4px; }
+.pixel-fire { font-size: 2rem; animation: flicker 1s infinite alternate; }
+@keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
